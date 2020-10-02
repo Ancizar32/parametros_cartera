@@ -90,6 +90,15 @@ function service_return(array $param){
     exit(0);
 }
 
+function rlog(...$data){
+    $user = 'ANCIZAR_LOPEZ';
+    $_app_name = 'parametros_cartera';
+    foreach($data as $item){
+        file_put_contents('debug.log',"\n".date('c').':'.$user.':['.$_app_name."]:".var_export($item,true),FILE_APPEND);
+    }
+}
+
+
 
 
 global $_output_filepath;

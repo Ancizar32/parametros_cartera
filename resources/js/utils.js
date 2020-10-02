@@ -4033,8 +4033,8 @@ function migrateInfo(){
             }).then((result) => {
                 if (result.value) {
                     if (data.success) {
-                        setTimeout(function(){reloadTable();},500);
-                        setTimeout(function(){closeModal();},500);
+                        // setTimeout(function(){reloadTable();},500);
+                        // setTimeout(function(){closeModal();},500);
                     }
                     if (data.setFocus) {
                         setTimeout(function(){$("#"+data.setFocus).focus();},500);

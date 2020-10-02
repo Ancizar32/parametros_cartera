@@ -170,7 +170,7 @@ public function loadCajaComprobante(array $param){
      $sql = "
      SELECT tc.afecta_caja AS v_caja_comprobante
      FROM tipos_comprobantes tc
-    WHERE tc.codtp_comprobante = {p_comprobante} ";
+    WHERE tc.codtp_comprobante = '{p_comprobante}' ";
      $query = $this->p($sql, [
         'p_comprobante'=>$p_comprobante,
      ]);
@@ -183,7 +183,7 @@ public function loadCajaFormapago(array $param){
      $sql = "
      SELECT fp.afecta_caja AS v_caja_formapago
      FROM formas_pago fp
-    WHERE fp.codforma_pago = {p_forma_pago} ";
+    WHERE fp.codforma_pago = '{p_forma_pago}' ";
      $query = $this->p($sql, [
         'p_forma_pago'=>$p_forma_pago,
      ]);
@@ -197,8 +197,8 @@ public function loadInfoAgrupaCompr(array $param){
      $sql = "
      SELECT MAX(cc.agrupa_concepto) AS v_agrupa_concepto
      FROM cnf_comprobantes cc
-    WHERE cc.control_detalle = {p_numero_control}
-      AND cc.codtp_comprobante = {p_codtp_comprobante} ";
+    WHERE cc.control_detalle = '{p_numero_control}'
+      AND cc.codtp_comprobante = '{p_codtp_comprobante}' ";
      $query = $this->p($sql, [
         'p_numero_control'=>$p_numero_control,
         'p_codtp_comprobante'=>$p_codtp_comprobante,
@@ -212,7 +212,7 @@ public function loadInfoTipoCuenta(array $param){
      $sql = "
      SELECT tc.nattp_comprobante, tc.tipo_causacion, tc.codcompania
      FROM tipos_comprobantes tc
-    WHERE tc.codtp_comprobante = {p_codtp_comprobante} ";
+    WHERE tc.codtp_comprobante = '{p_codtp_comprobante}' ";
      $query = $this->p($sql, [
         'p_codtp_comprobante'=>$p_codtp_comprobante,
      ]);
@@ -223,11 +223,81 @@ public function loadInfoTipoCuenta(array $param){
 public function loadInfoContableConcepto(array $param){
     $p_codconcepto = isset($param['p_codconcepto']) ? $param['p_codconcepto'] : '';
      $sql = "
-     SELECT cm.cuenta_contable, cm.causa_gasto
+     SELECT cm.cuenta_contable, cm.causa_gasto, cm.desconcepto
      FROM conceptos_mvto cm
-    WHERE cm.codconcepto = {p_codconcepto} ";
+    WHERE cm.codconcepto = '{p_codconcepto}' ";
      $query = $this->p($sql, [
         'p_codconcepto'=>$p_codconcepto,
+     ]);
+    $this->consultar($query,__FUNCTION__);
+    return $query;
+}
+
+public function loadInfoNitComp(array $param){
+    $p_codcompania = isset($param['p_codcompania']) ? $param['p_codcompania'] : '';
+     $sql = "
+     SELECT cm.numnit AS v_nitcompania
+     FROM companias cm
+    WHERE cm.codigo = '{p_codcompania}' ";
+     $query = $this->p($sql, [
+        'p_codcompania'=>$p_codcompania,
+     ]);
+    $this->consultar($query,__FUNCTION__);
+    return $query;
+}
+
+public function loadInfoSucursal(array $param){
+    $p_sucursal = isset($param['p_sucursal']) ? $param['p_sucursal'] : '';
+     $sql = "
+     SELECT sc.codigo AS v_sucursal, sc.codcuenta AS v_codcuenta
+     FROM sucursales sc
+    WHERE sc.codigo = '{p_sucursal}' ";
+     $query = $this->p($sql, [
+        'p_sucursal'=>$p_sucursal,
+     ]);
+    $this->consultar($query,__FUNCTION__);
+    return $query;
+}
+
+public function loadInfoDesTerceroP(array $param){
+    $p_numeroidentifi = isset($param['p_numeroidentifi']) ? $param['p_numeroidentifi'] : '';
+     $sql = "
+     SELECT TRIM(tr.primer_nombre) AS v_nom1, TRIM(tr.segundo_nombre) AS v_nom2,
+             TRIM(tr.primer_apellido) AS v_ape1, TRIM(tr.segundo_apellido) AS v_ape2,
+             TRIM(tr.nombre) AS v_razonso
+        FROM s2tmpprov tr
+       WHERE tr.nit = '{p_numeroidentifi}' ";
+     $query = $this->p($sql, [
+        'p_numeroidentifi'=>$p_numeroidentifi,
+     ]);
+    $this->consultar($query,__FUNCTION__);
+
+    return $query;
+}
+
+public function loadInfoDesTerceroC(array $param){
+    $p_numeroidentifi = isset($param['p_numeroidentifi']) ? $param['p_numeroidentifi'] : '';
+     $sql = "
+     SELECT TRIM(cl.cacc_nombre) AS v_nombres
+        FROM cacc cl
+       WHERE cl.cacc_nitcli = '{p_numeroidentifi}' ";
+     $query = $this->p($sql, [
+        'p_numeroidentifi'=>$p_numeroidentifi,
+     ]);
+    $this->consultar($query,__FUNCTION__);
+    return $query;
+}
+
+public function loadInfoDesTerceroI(array $param){
+    $p_numeroidentifi = isset($param['p_numeroidentifi']) ? $param['p_numeroidentifi'] : '';
+     $sql = "
+     SELECT TRIM(pr.prinombre) AS v_nom1, TRIM(pr.segnombre) AS v_nom2, TRIM(pr.priapel) AS v_ape1,
+             TRIM(pr.segapel) AS v_ape2
+        FROM personal pr
+       WHERE pr.cedula = '{p_numeroidentifi}'
+         AND pr.estado = 'A' ";
+     $query = $this->p($sql, [
+        'p_numeroidentifi'=>$p_numeroidentifi,
      ]);
     $this->consultar($query,__FUNCTION__);
     return $query;
@@ -238,7 +308,7 @@ public function loadInfoContableCodCuenta(array $param){
      $sql = "
      SELECT te.cuenta_tercero AS v_codcuenta
         FROM s2tmpprov te
-       WHERE te.nit = {p_identificac}";
+       WHERE te.nit = '{p_identificac}' ";
      $query = $this->p($sql, [
         'p_identificac'=>$p_identificac,
      ]);
@@ -251,7 +321,7 @@ public function loadInfoContableCodCuentaBySuc(array $param){
      $sql = "
      SELECT sc.codcuenta AS v_codcuenta
         FROM sucursales sc
-       WHERE sc.codigo = {p_codsucursal}";
+       WHERE sc.codigo = '{p_codsucursal}' ";
      $query = $this->p($sql, [
         'p_codsucursal'=>$p_codsucursal,
      ]);
@@ -333,6 +403,73 @@ public function loadInfoMvto(array $param){
             'cadena_comprb'=>$cadena_comprb,
             'cadena_concep'=>$cadena_concep,
             'cadena_formap'=>$cadena_formap,
+         ]);
+
+    $this->consultar($query,__FUNCTION__);
+    return $query;
+}
+
+public function loadInfoFact(array $param){
+    $p_codsucursal = isset($param['p_codsucursal']) ? $param['p_codsucursal'] : '';
+    $p_fecha = isset($param['p_fecha']) ? $param['p_fecha'] : '';
+    $cadena_areas = isset($param['cadena_areas']) ? $param['cadena_areas'] : '';
+    $cadena_comprb = !empty($param['cadena_comprb']) ? " AND fc.codtp_comprobante IN (".$param['cadena_comprb'].") " : ' '; 
+    $cadena_concep = !empty($param['cadena_concep']) ? " AND fd.codconcepto IN (".$param['cadena_concep'].") " : ' ';
+
+    $sql = "
+    SELECT 
+    fc.consecutivo, 
+    fc.codsucur_pago, 
+    fc.codtp_comprobante, 
+    fc.numero_comprobante, 
+    fc.fecha_factura, 
+    fc.tipo_identifica, 
+    fc.identificacion, 
+    fc.usrcrea, 
+    fc.feccrea, 
+    fd.codconcepto, 
+    fd.descripcion, 
+    fc.codsucursal, 
+    fc.numero_comprobante,
+    1,
+    1,
+    1, 
+    fd.vlr_base, 
+    fd.valor_concepto
+    FROM facturas fc, factura_detalle fd
+    WHERE 
+    fc.feccrea = '{p_fecha}'
+    AND fc.codsucursal = '{p_codsucursal}' AND fc.estado = 'A' AND fc.consecutivo = fd.consecutivo ";
+
+    if ($p_codsucursal == '1') {
+        $sql = "
+        SELECT fc.consecutivo, 
+        fc.codsucur_pago, 
+        fc.codtp_comprobante, 
+        fc.numero_comprobante, 
+        fc.fecha_factura, 
+        fc.tipo_identifica, 
+        fc.identificacion, 
+        fc.usrcrea, 
+        fc.feccrea, 
+        fd.codconcepto, 
+        fd.descripcion, 
+        fc.codsucursal, 
+        fc.numero_comprobante, 
+        1,1,1, 
+        fd.vlr_base, 
+        fd.valor_concepto 
+        FROM facturas fc, factura_detalle fd
+        WHERE fc.feccrea = '{p_fecha}'
+        AND ( fc.codsucursal = '{p_codsucursal}'
+        OR fc.codsucursal IN ({cadena_areas})) AND fc.estado = 'A' AND fc.consecutivo = fd.consecutivo ";
+        
+    }
+
+    $query = $this->p($sql, [
+            'p_fecha'=>$p_fecha,
+            'p_codsucursal'=>$p_codsucursal,
+            'cadena_areas'=>$cadena_areas,
          ]);
 
     $this->consultar($query,__FUNCTION__);
