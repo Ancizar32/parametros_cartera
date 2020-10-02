@@ -1,0 +1,140 @@
+.modal-header {
+    padding:9px 15px;
+    border-bottom:1px solid #eee;
+    background-color:#005983;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+
+.ui-dialog-titlebar-close {
+  display: none !important;
+}
+
+.ui-dialog {
+  z-index: 1035 !important;
+}
+
+ .table-striped>tbody>tr:nth-child(odd)>td, 
+      .table-striped>tbody>tr:nth-child(odd)>th {
+       background-color: #dff0d8;
+      }
+      .table-striped>tbody>tr:nth-child(even)>td, 
+      .table-striped>tbody>tr:nth-child(even)>th {
+       background-color: #D2E4E8;
+      }
+      .table-striped>thead>tr>th {
+       background-color: #eee;
+      }
+
+
+.color_boletin{
+ background-color: #ffbf80 !important;
+}
+
+.color_solucion{
+ background-color: #BAD8F4!important;       
+}
+
+.color_sucursal{
+ background-color: #A9F5BC!important;       
+}
+
+.limite_dias{
+ font-weight:bold;
+ color: red;
+}
+
+
+.row.no-gutter {
+    margin-left: 0;
+    margin-right:0;
+}
+
+.row.no-gutter [class*='col-']:not(:first-child),
+.row.no-gutter [class*='col-']:not(:last-child) {
+    padding-right: 0.25;
+    padding-left: 0;
+}
+
+
+.center-x{ text-align:center;} 
+
+.center-y{vertical-align:middle;} 
+
+.error
+{
+color:red;
+
+}
+
+
+/*tamaño del los input para filtras que estan en la tabla*/
+#example3 thead tr th input {width:100%}
+#example4 thead tr th input {width:100%}
+#example5 thead tr th input {width:100%}
+#example3 thead tr th #date_range3 {width:90%}
+#example4 thead tr th #date_range4 {width:90%}
+#example5 thead tr th #date_range5 {width:90%}
+
+#example3 input[type=text] {
+    height: 32px;   
+    }
+    
+  #example4 input[type=text] {
+    height: 32px;   
+    }
+    
+    #example5 input[type=text] {
+    height: 32px;   
+    }
+    
+   #nombre_usuariobus {
+    height: 32px; 
+    display: block;
+    text-align: center;
+    padding-top: 10px; 
+    }
+    
+   #nombre_usuariopermisos {
+    height: 32px; 
+    display: block;
+    text-align: center;
+    padding-top: 10px; 
+     
+    }
+    
+   /*cambiar el ancho de columnas del datatable*/
+  
+
+     
+   #example3 tr td:nth-child(4){
+       width:10%;
+   } 
+     
+   #example4 tr td:nth-child(1){
+       width:12%;
+   } 
+   #example4 tr td:nth-child(6){
+       width:10%;
+   } 
+   
+   #example5 tr td:nth-child(6){
+       width:10%;
+   } 
+      
+  /* .alert{   
+    height: 32px;
+    padding: 5px 10px 0 500px;
+   }*/
+  
+  
+  #mostrarListaAsesoresSucursal {
+  min-width: 150px;
+   
+  }
+
